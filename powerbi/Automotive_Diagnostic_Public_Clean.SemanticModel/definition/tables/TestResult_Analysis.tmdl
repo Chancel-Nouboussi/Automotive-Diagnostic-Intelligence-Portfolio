@@ -1,0 +1,33 @@
+table TestResult_Analysis
+	lineageTag: 0d1b5347-5147-4e66-a330-6040bee20a6e
+
+	column TestResult
+		dataType: string
+		lineageTag: 4d9c4b74-6044-415a-a3e4-b115e03072ba
+		summarizeBy: none
+		sourceColumn: TestResult
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumberOfTests
+		dataType: int64
+		formatString: 0
+		lineageTag: a5c023f5-1c0f-43d3-856a-aeb9307e4513
+		summarizeBy: none
+		sourceColumn: NumberOfTests
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TestResult_Analysis = m
+		mode: import
+		source =
+				let
+				    Quelle = FactTestCaseSummary,
+				    #"Gruppierte Zeilen" = Table.Group(Quelle, {"TestResult"}, {{"NumberOfTests", each Table.RowCount(_), Int64.Type}})
+				in
+				    #"Gruppierte Zeilen"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

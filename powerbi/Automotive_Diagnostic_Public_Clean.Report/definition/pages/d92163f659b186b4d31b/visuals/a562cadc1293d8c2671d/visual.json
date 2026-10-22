@@ -1,0 +1,211 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "a562cadc1293d8c2671d",
+  "position": {
+    "x": 9.804320507450182,
+    "y": 468.97333093970036,
+    "z": 6000,
+    "height": 251.64422635788802,
+    "width": 1189.5908882372887,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactDTCComparison"
+                    }
+                  },
+                  "Property": "TestID"
+                }
+              },
+              "queryRef": "FactDTCComparison.TestID",
+              "nativeQueryRef": "TestID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactDTCComparison"
+                    }
+                  },
+                  "Property": "Timestamp"
+                }
+              },
+              "queryRef": "FactDTCComparison.Timestamp",
+              "nativeQueryRef": "Timestamp"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactDTCComparison"
+                    }
+                  },
+                  "Property": "ExpectedDTC"
+                }
+              },
+              "queryRef": "FactDTCComparison.ExpectedDTC",
+              "nativeQueryRef": "ExpectedDTC"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactDTCComparison"
+                    }
+                  },
+                  "Property": "ActualDTC"
+                }
+              },
+              "queryRef": "FactDTCComparison.ActualDTC",
+              "nativeQueryRef": "ActualDTC"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactDTCComparison"
+                    }
+                  },
+                  "Property": "DTCStatus"
+                }
+              },
+              "queryRef": "FactDTCComparison.DTCStatus",
+              "nativeQueryRef": "DTCStatus"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactDTCComparison"
+                    }
+                  },
+                  "Property": "DTCName"
+                }
+              },
+              "queryRef": "FactDTCComparison.DTCName",
+              "nativeQueryRef": "DTCName"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "195.19491795179374D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactDTCComparison.TestID"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "226.67133653408894D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactDTCComparison.Timestamp"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "184.5189774517026D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactDTCComparison.ExpectedDTC"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "177.12807081831681D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactDTCComparison.ActualDTC"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "167.60864167559703D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactDTCComparison.DTCStatus"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Detailed DTC Event Analysis'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

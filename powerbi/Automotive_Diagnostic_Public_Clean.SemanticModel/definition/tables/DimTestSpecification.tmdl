@@ -1,0 +1,56 @@
+table DimTestSpecification
+	lineageTag: 9b334472-984f-46b4-a26e-bc9c4e0c2034
+
+	column TestID
+		dataType: string
+		lineageTag: 4ed52cac-62e8-4641-b904-c552ee9a5c08
+		summarizeBy: none
+		sourceColumn: TestID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExpectedDTC
+		dataType: string
+		lineageTag: 82322469-f589-4ed6-be67-08e89415b224
+		summarizeBy: none
+		sourceColumn: ExpectedDTC
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimTestSpecification = m
+		mode: import
+		source =
+				let
+				    Quelle = Excel.Workbook(
+				        File.Contents(
+				            pDataFolder & "Synthetic_TestSpecification_Clean.xlsx"
+				        ),
+				        null,
+				        true
+				    ),
+				    Daten = Quelle{[Item="TestSpecification", Kind="Sheet"]}[Data],
+				    Kopfzeilen = Table.PromoteHeaders(
+				        Daten,
+				        [PromoteAllScalars=true]
+				    ),
+				    Datentypen = Table.TransformColumnTypes(
+				        Kopfzeilen,
+				        {
+				            {"TestID", type text},
+				            {"ExpectedDTC", type text}
+				        }
+				    ),
+				    Bereinigt = Table.TransformColumns(
+				        Datentypen,
+				        {
+				            {"TestID", each Text.Upper(Text.Trim(_)), type text},
+				            {"ExpectedDTC", each Text.Upper(Text.Trim(_)), type text}
+				        }
+				    )
+				in
+				    Bereinigt
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

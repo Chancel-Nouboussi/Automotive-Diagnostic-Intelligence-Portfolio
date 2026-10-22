@@ -1,0 +1,8 @@
+/// Folder containing synthetic demo data
+expression pDataFolder = "C:\PowerBI_Portfolio\Automotive_Diagnostic\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 979d7f69-43a3-4fe8-b064-05c81d42ac42
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

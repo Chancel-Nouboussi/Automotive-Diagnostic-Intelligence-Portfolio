@@ -1,0 +1,25 @@
+model Model
+	culture: de-DE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["FactDTCEvents","DimTestSpecification","FactDTCComparison","FactTestCaseSummary","TestResult_Analysis","pDataFolder"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table FactDTCEvents
+ref table DateTableTemplate_51c4439e-3cba-4a0a-8d30-7a9e38588efa
+ref table LocalDateTable_69faecf1-f257-4fce-a360-f21f5548e784
+ref table DimTestSpecification
+ref table FactDTCComparison
+ref table LocalDateTable_e76880d8-2cd1-49a4-b485-fb66d99e202e
+ref table FactTestCaseSummary
+ref table TestResult_Analysis
+
+ref cultureInfo de-DE
+

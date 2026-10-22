@@ -1,0 +1,28 @@
+relationship d40a69d0-818d-4ad4-9918-7ed8d7eb6d00
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDTCEvents.Timestamp
+	toColumn: LocalDateTable_69faecf1-f257-4fce-a360-f21f5548e784.Date
+
+relationship 41f1ab29-2708-4f53-b1b8-6929c5b5b4ee
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDTCComparison.Timestamp
+	toColumn: LocalDateTable_e76880d8-2cd1-49a4-b485-fb66d99e202e.Date
+
+relationship AutoDetected_2d6fe18f-26d3-4698-8cc5-0ac9043490fb
+	fromColumn: FactDTCEvents.TestID
+	toColumn: FactTestCaseSummary.TestID
+
+relationship AutoDetected_f24c3e0a-efa7-47d7-ac46-a3947c1de8e6
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimTestSpecification.TestID
+	toColumn: FactTestCaseSummary.TestID
+
+relationship AutoDetected_469684f0-278b-4813-9e3d-5c76e31d3dbb
+	fromColumn: FactDTCComparison.TestID
+	toColumn: FactTestCaseSummary.TestID
+
+relationship AutoDetected_c146afc6-ca1f-4993-9710-afdeff814d2b
+	fromColumn: FactTestCaseSummary.TestResult
+	toColumn: TestResult_Analysis.TestResult
+

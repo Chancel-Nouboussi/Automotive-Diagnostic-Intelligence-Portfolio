@@ -1,0 +1,130 @@
+{
+  "0xF90001 - Demo_Voltage_Input_ORH_1": [
+    "15.7.2026 - 09:00:00 -> DIA_ERR_90001"
+  ],
+  "0xF90002 - Demo_Voltage_Input_ORL_2": [
+    "15.7.2026 - 09:03:00 -> DIA_ERR_90002"
+  ],
+  "0xF90009 - Demo_Voltage_Aux_RAT_9": [
+    "15.7.2026 - 09:03:00 -> DIA_ERR_90002",
+    "15.7.2026 - 09:21:00 -> DIA_ERR_90008",
+    "15.7.2026 - 09:24:00 -> DIA_ERR_90009",
+    "15.7.2026 - 09:39:00 -> DIA_ERR_90014",
+    "15.7.2026 - 10:03:00 -> DIA_ERR_90022",
+    "15.7.2026 - 10:21:00 -> DIA_ERR_90028",
+    "15.7.2026 - 10:45:00 -> DIA_ERR_90036"
+  ],
+  "0xF90003 - Demo_Current_Sensor_ORH_3": [
+    "15.7.2026 - 09:06:00 -> DIA_ERR_90003"
+  ],
+  "0xF90004 - Demo_Current_Sensor_ORL_4": [
+    "15.7.2026 - 09:09:00 -> DIA_ERR_90004"
+  ],
+  "0xF90005 - Demo_Temp_Cooling_ORH_5": [
+    "15.7.2026 - 09:12:00 -> DIA_ERR_90005"
+  ],
+  "0xF9000A - Demo_Current_Output_RAT_10": [
+    "15.7.2026 - 09:12:00 -> DIA_ERR_90005"
+  ],
+  "0xF90006 - Demo_Temp_Cooling_ORL_6": [
+    "15.7.2026 - 09:15:00 -> DIA_ERR_90006"
+  ],
+  "0xF90007 - Demo_CAN_Timeout_7": [
+    "15.7.2026 - 09:18:00 -> DIA_ERR_90007"
+  ],
+  "0xF90008 - Demo_CAN_CRC_8": [
+    "15.7.2026 - 09:21:00 -> DIA_ERR_90008"
+  ],
+  "0xF9000B - Demo_Voltage_Input_ORH_11": [
+    "15.7.2026 - 09:27:00 -> DIA_ERR_90010",
+    "15.7.2026 - 09:30:00 -> DIA_ERR_90011"
+  ],
+  "0xF9000C - Demo_Voltage_Input_ORL_12": [
+    "15.7.2026 - 09:33:00 -> DIA_ERR_90012"
+  ],
+  "0xF9000D - Demo_Current_Sensor_ORH_13": [
+    "15.7.2026 - 09:36:00 -> DIA_ERR_90013"
+  ],
+  "0xF9000E - Demo_Current_Sensor_ORL_14": [
+    "15.7.2026 - 09:39:00 -> DIA_ERR_90014"
+  ],
+  "0xF9000F - Demo_Temp_Cooling_ORH_15": [
+    "15.7.2026 - 09:42:00 -> DIA_ERR_90015"
+  ],
+  "0xF90010 - Demo_Temp_Cooling_ORL_16": [
+    "15.7.2026 - 09:45:00 -> DIA_ERR_90016"
+  ],
+  "0xF90011 - Demo_CAN_Timeout_17": [
+    "15.7.2026 - 09:48:00 -> DIA_ERR_90017"
+  ],
+  "0xF90012 - Demo_CAN_CRC_18": [
+    "15.7.2026 - 09:51:00 -> DIA_ERR_90018"
+  ],
+  "0xF90014 - Demo_Current_Output_RAT_20": [
+    "15.7.2026 - 09:54:00 -> DIA_ERR_90019",
+    "15.7.2026 - 09:57:00 -> DIA_ERR_90020"
+  ],
+  "0xF90015 - Demo_Voltage_Input_ORH_21": [
+    "15.7.2026 - 10:00:00 -> DIA_ERR_90021"
+  ],
+  "0xF90016 - Demo_Voltage_Input_ORL_22": [
+    "15.7.2026 - 10:03:00 -> DIA_ERR_90022"
+  ],
+  "0xF90017 - Demo_Current_Sensor_ORH_23": [
+    "15.7.2026 - 10:06:00 -> DIA_ERR_90023"
+  ],
+  "0xF90018 - Demo_Current_Sensor_ORL_24": [
+    "15.7.2026 - 10:09:00 -> DIA_ERR_90024"
+  ],
+  "0xF90019 - Demo_Temp_Cooling_ORH_25": [
+    "15.7.2026 - 10:12:00 -> DIA_ERR_90025"
+  ],
+  "0xF9001A - Demo_Temp_Cooling_ORL_26": [
+    "15.7.2026 - 10:15:00 -> DIA_ERR_90026"
+  ],
+  "0xF9001B - Demo_CAN_Timeout_27": [
+    "15.7.2026 - 10:18:00 -> DIA_ERR_90027"
+  ],
+  "0xF9001C - Demo_CAN_CRC_28": [
+    "15.7.2026 - 10:21:00 -> DIA_ERR_90028"
+  ],
+  "0xF9001D - Demo_Voltage_Aux_RAT_29": [
+    "15.7.2026 - 10:24:00 -> DIA_ERR_90029"
+  ],
+  "0xF9001E - Demo_Current_Output_RAT_30": [
+    "15.7.2026 - 10:27:00 -> DIA_ERR_90030"
+  ],
+  "0xF9001F - Demo_Voltage_Input_ORH_31": [
+    "15.7.2026 - 10:30:00 -> DIA_ERR_90031"
+  ],
+  "0xF90020 - Demo_Voltage_Input_ORL_32": [
+    "15.7.2026 - 10:33:00 -> DIA_ERR_90032"
+  ],
+  "0xF90021 - Demo_Current_Sensor_ORH_33": [
+    "15.7.2026 - 10:36:00 -> DIA_ERR_90033"
+  ],
+  "0xF90022 - Demo_Current_Sensor_ORL_34": [
+    "15.7.2026 - 10:39:00 -> DIA_ERR_90034"
+  ],
+  "0xF90023 - Demo_Temp_Cooling_ORH_35": [
+    "15.7.2026 - 10:42:00 -> DIA_ERR_90035"
+  ],
+  "0xF90024 - Demo_Temp_Cooling_ORL_36": [
+    "15.7.2026 - 10:45:00 -> DIA_ERR_90036"
+  ],
+  "0xF90025 - Demo_CAN_Timeout_37": [
+    "15.7.2026 - 10:48:00 -> DIA_ERR_90037"
+  ],
+  "0xF90026 - Demo_CAN_CRC_38": [
+    "15.7.2026 - 10:51:00 -> DIA_ERR_90038"
+  ],
+  "0xF90027 - Demo_Voltage_Aux_RAT_39": [
+    "15.7.2026 - 10:54:00 -> DIA_ERR_90039"
+  ],
+  "0xF90028 - Demo_Current_Output_RAT_40": [
+    "15.7.2026 - 10:57:00 -> DIA_ERR_90040"
+  ],
+  "0xF9EE01 - Demo_Voltage_Unmapped": [
+    "15.7.2026 - 11:05:00 -> DIA_ERR_99991"
+  ]
+}

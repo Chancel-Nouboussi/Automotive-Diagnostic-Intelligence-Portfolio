@@ -1,0 +1,172 @@
+table FactDTCComparison
+	lineageTag: 836e619e-a93b-40c7-932b-62fc0be86a28
+
+	measure 'Expected DTC Events' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FactDTCComparison),
+			    FactDTCComparison[DTCStatus] = "Expected DTC"
+			)
+			
+			```
+		formatString: 0
+		lineageTag: ae24041c-2ae8-49c7-bcba-364f5de8633b
+
+	measure 'Additional DTC Events' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FactDTCComparison),
+			    FactDTCComparison[DTCStatus] = "Additional DTC"
+			)
+			
+			```
+		formatString: 0
+		lineageTag: a15476a8-0e47-4c68-9aec-9f894a3b85a0
+
+	measure 'No Specification Match Events' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FactDTCComparison),
+			    FactDTCComparison[DTCStatus] = "No Specification Match"
+			)
+			
+			```
+		formatString: 0
+		lineageTag: e1205ca1-510d-4517-af35-758387a0df3d
+
+	measure 'Most Frequent Additional DTC' = ```
+			
+			VAR DTCCounts =
+			    ADDCOLUMNS(
+			        CALCULATETABLE(
+			            VALUES(FactDTCComparison[ActualDTC]),
+			            FactDTCComparison[DTCStatus] = "Additional DTC"
+			        ),
+			        "@Count",
+			        CALCULATE(
+			            COUNTROWS(FactDTCComparison),
+			            FactDTCComparison[DTCStatus] = "Additional DTC"
+			        )
+			    )
+			VAR TopDTC =
+			    TOPN(
+			        1,
+			        DTCCounts,
+			        [@Count], DESC,
+			        FactDTCComparison[ActualDTC], ASC
+			    )
+			RETURN
+			    MAXX(TopDTC, FactDTCComparison[ActualDTC])
+			
+			```
+		lineageTag: 32c63c77-4c43-4b36-93df-eb5f41fe8b58
+
+	measure 'Top Additional DTC Occurrences' = ```
+			
+			VAR TopCode = [Most Frequent Additional DTC]
+			RETURN
+			    CALCULATE(
+			        COUNTROWS(FactDTCComparison),
+			        FactDTCComparison[DTCStatus] = "Additional DTC",
+			        FactDTCComparison[ActualDTC] = TopCode
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 87a252c4-9727-4cb8-b018-6242292306f1
+
+	measure 'Top Additional DTC Share' = ```
+			
+			DIVIDE(
+			    [Top Additional DTC Occurrences],
+			    [Additional DTC Events],
+			    0
+			)
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 5e2656ad-b7d3-43fe-8045-374e2320f2e0
+
+	column DTCCode
+		dataType: string
+		lineageTag: d81ae785-b037-433f-ba88-f450a437e5a3
+		summarizeBy: none
+		sourceColumn: DTCCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column DTCName
+		dataType: string
+		lineageTag: 1a7eaa26-3c61-4d60-9d13-bf5b96f6c027
+		summarizeBy: none
+		sourceColumn: DTCName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7ae677eb-1c14-4dec-bb9d-28dc3cf6d3c3
+		summarizeBy: none
+		sourceColumn: Timestamp
+
+		variation Variation
+			isDefault
+			relationship: 41f1ab29-2708-4f53-b1b8-6929c5b5b4ee
+			defaultHierarchy: LocalDateTable_e76880d8-2cd1-49a4-b485-fb66d99e202e.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column TestID
+		dataType: string
+		lineageTag: 8c824359-db6a-4e2a-afc9-3361feff62db
+		summarizeBy: none
+		sourceColumn: TestID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActualDTC
+		dataType: string
+		lineageTag: 6d49c958-5b64-4d1d-9d9e-70d55fdaa273
+		summarizeBy: none
+		sourceColumn: ActualDTC
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExpectedDTC
+		dataType: string
+		lineageTag: 84c838ad-f511-441c-955b-b803e13c4a0d
+		summarizeBy: none
+		sourceColumn: ExpectedDTC
+
+		annotation SummarizationSetBy = Automatic
+
+	column DTCStatus
+		dataType: string
+		lineageTag: 9d44248a-cc0c-4871-8abc-c3240af068ec
+		summarizeBy: none
+		sourceColumn: DTCStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactDTCComparison = m
+		mode: import
+		source =
+				let
+				    Quelle = FactDTCEvents,
+				    #"Zusammengeführte Abfragen" = Table.NestedJoin(Quelle, {"TestID"}, DimTestSpecification, {"TestID"}, "DimTestSpecification", JoinKind.LeftOuter),
+				    #"Erweiterte DimTestSpecification" = Table.ExpandTableColumn(#"Zusammengeführte Abfragen", "DimTestSpecification", {"ExpectedDTC"}, {"ExpectedDTC"}),
+				    #"Hinzugefügte benutzerdefinierte Spalte" = Table.AddColumn(#"Erweiterte DimTestSpecification", "DTCStatus", each if [ExpectedDTC] = null then
+				    "No Specification Match"
+				else if [ActualDTC] = [ExpectedDTC] then
+				    "Expected DTC"
+				else
+				    "Additional DTC"),
+				    #"Geänderter Typ" = Table.TransformColumnTypes(#"Hinzugefügte benutzerdefinierte Spalte",{{"DTCStatus", type text}})
+				in
+				    #"Geänderter Typ"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

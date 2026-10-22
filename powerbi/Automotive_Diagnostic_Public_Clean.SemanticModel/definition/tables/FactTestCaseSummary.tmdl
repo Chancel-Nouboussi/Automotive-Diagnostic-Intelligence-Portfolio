@@ -1,0 +1,188 @@
+table FactTestCaseSummary
+	lineageTag: 441adace-77a2-4f0e-bf3d-cd80db697ef3
+
+	measure 'Total Test Cases' = ```
+			
+			COUNTROWS(FactTestCaseSummary)
+			
+			```
+		formatString: 0
+		lineageTag: 45be3007-9f75-48da-b2cf-4814229a2ca3
+
+	measure 'Mapped Test Cases' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FactTestCaseSummary),
+			    FactTestCaseSummary[HasSpecification] = TRUE()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: d7c4ddc8-e3c6-40b8-b5fa-4d7b2b352b8c
+
+	measure 'DTC Detection Rate' = ```
+			
+			VAR DetectedTests =
+			    CALCULATE(
+			        COUNTROWS(FactTestCaseSummary),
+			        FactTestCaseSummary[ExpectedDTCDetected] = TRUE(),
+			        FactTestCaseSummary[HasSpecification] = TRUE()
+			    )
+			VAR MappedTests =
+			    CALCULATE(
+			        COUNTROWS(FactTestCaseSummary),
+			        FactTestCaseSummary[HasSpecification] = TRUE()
+			    )
+			RETURN
+			    DIVIDE(
+			        COALESCE(DetectedTests, 0),
+			        MappedTests,
+			        0
+			    )
+			
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 66d9fc5a-df21-488f-b767-13d864ee0dff
+
+	measure 'Tests with Extra DTCs' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FactTestCaseSummary),
+			    FactTestCaseSummary[AdditionalDTCCount] > 0,
+			    FactTestCaseSummary[ExpectedDTCDetected] = TRUE()
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 5156615d-741d-437c-8d97-31db29ac5da3
+
+	measure 'Expected Missing Tests' = ```
+			
+			CALCULATE(
+			    COUNTROWS(FactTestCaseSummary),
+			    FactTestCaseSummary[TestResult] = "Expected Missing"
+			)
+			
+			```
+		formatString: 0
+		lineageTag: b6f37255-1493-4e7f-a9ce-6f617b18d0c0
+
+	measure 'Specification Coverage Rate' = ```
+			
+			DIVIDE(
+			    [Mapped Test Cases],
+			    [Total Test Cases],
+			    0
+			)
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: e4636343-7f5e-405d-a2ea-c0b915417325
+
+	measure 'Expected DTC Success Rate' = ```
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(FactTestCaseSummary),
+			        FactTestCaseSummary[ExpectedDTCDetected] = TRUE()
+			    ),
+			    [Total Test Cases],
+			    0
+			)
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 8ddae461-ab98-4036-8592-0e857e4b306b
+
+	column TestID
+		dataType: string
+		lineageTag: 4765ddfc-5067-44cb-9ecf-5d63844ee42e
+		summarizeBy: none
+		sourceColumn: TestID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DTCCount
+		dataType: int64
+		formatString: 0
+		lineageTag: e1663023-e14d-44b5-bd81-8337dd66749d
+		summarizeBy: sum
+		sourceColumn: DTCCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExpectedDTCDetected
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 10ba369a-a7e2-4db1-a525-71a4afff750d
+		summarizeBy: none
+		sourceColumn: ExpectedDTCDetected
+
+		annotation SummarizationSetBy = Automatic
+
+	column HasSpecification
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5eece48e-ae44-45bc-96c9-a28e9696192e
+		summarizeBy: none
+		sourceColumn: HasSpecification
+
+		annotation SummarizationSetBy = Automatic
+
+	column AdditionalDTCCount
+		dataType: int64
+		formatString: 0
+		lineageTag: e4492cca-35db-4715-8845-741eda6fbb49
+		summarizeBy: sum
+		sourceColumn: AdditionalDTCCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column TestResult
+		dataType: string
+		lineageTag: 5bc3dfde-8785-420b-a2a6-a5993015daa2
+		summarizeBy: none
+		sourceColumn: TestResult
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactTestCaseSummary = m
+		mode: import
+		source =
+				let
+				    Quelle = FactDTCComparison,
+				    #"Gruppierte Zeilen" = Table.Group(Quelle, {"TestID"}, {{"DTCCount", each Table.RowCount(_), Int64.Type}, {"TestDetails", each _, type table [DTCCode=nullable text, DTCName=nullable text, Timestamp=nullable datetime, TestID=nullable text, ActualDTC=nullable text, ExpectedDTC=nullable text, DTCStatus=nullable text]}}),
+				    #"Hinzugefügte benutzerdefinierte Spalte" = Table.AddColumn(#"Gruppierte Zeilen", "ExpectedDTCDetected", each List.Contains(
+				    Table.Column([TestDetails], "DTCStatus"),
+				    "Expected DTC"
+				)),
+				    #"Geänderter Typ" = Table.TransformColumnTypes(#"Hinzugefügte benutzerdefinierte Spalte",{{"ExpectedDTCDetected", type logical}}),
+				    #"Hinzugefügte benutzerdefinierte Spalte2" = Table.AddColumn(#"Geänderter Typ", "HasSpecification", each List.NonNullCount(
+				    [TestDetails][ExpectedDTC]
+				) > 0),
+				    #"Geänderter Typ2" = Table.TransformColumnTypes(#"Hinzugefügte benutzerdefinierte Spalte2",{{"HasSpecification", type logical}}),
+				    #"Hinzugefügte benutzerdefinierte Spalte3" = Table.AddColumn(#"Geänderter Typ2", "AdditionalDTCCount", each List.Count(
+				    List.Select(
+				        [TestDetails][DTCStatus],
+				        each _ = "Additional DTC"
+				    )
+				)),
+				    #"Geänderter Typ3" = Table.TransformColumnTypes(#"Hinzugefügte benutzerdefinierte Spalte3",{{"AdditionalDTCCount", Int64.Type}}),
+				    #"Hinzugefügte benutzerdefinierte Spalte4" = Table.AddColumn(#"Geänderter Typ3", "TestResult", each if [HasSpecification] = false then
+				    "No Specification Match"
+				else if [ExpectedDTCDetected] = false then
+				    "Expected Missing"
+				else if [AdditionalDTCCount] > 0 then
+				    "Expected + Additional"
+				else
+				    "Expected Only"),
+				    #"Geänderter Typ4" = Table.TransformColumnTypes(#"Hinzugefügte benutzerdefinierte Spalte4",{{"TestResult", type text}}),
+				    #"Entfernte Spalten" = Table.RemoveColumns(#"Geänderter Typ4",{"TestDetails"})
+				in
+				    #"Entfernte Spalten"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

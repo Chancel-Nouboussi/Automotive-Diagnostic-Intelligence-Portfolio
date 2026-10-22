@@ -1,0 +1,86 @@
+table FactDTCEvents
+	lineageTag: 40e16a77-3b2f-4cc5-b296-31cfcda81794
+
+	measure 'Total DTC Events' = ```
+			
+			COUNTROWS(FactDTCComparison)
+			
+			
+			```
+		formatString: 0
+		lineageTag: bdae6f1a-b29b-47a6-930f-1ad178b46e1f
+
+	column DTCCode
+		dataType: string
+		lineageTag: fcea9e57-9ca1-4a88-80cd-11052148cb48
+		summarizeBy: none
+		sourceColumn: DTCCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column DTCName
+		dataType: string
+		lineageTag: 431dcebd-85cc-4364-be25-6ad796849aef
+		summarizeBy: none
+		sourceColumn: DTCName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a3841699-fec4-422c-adcf-a80f8ea21bc1
+		summarizeBy: none
+		sourceColumn: Timestamp
+
+		variation Variation
+			isDefault
+			relationship: d40a69d0-818d-4ad4-9918-7ed8d7eb6d00
+			defaultHierarchy: LocalDateTable_69faecf1-f257-4fce-a360-f21f5548e784.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column TestID
+		dataType: string
+		lineageTag: 2de909a2-f179-4229-9d4f-4c0036407fe3
+		summarizeBy: none
+		sourceColumn: TestID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActualDTC
+		dataType: string
+		lineageTag: 67da3845-4651-48ba-8f58-f2d5437bc0c1
+		summarizeBy: none
+		sourceColumn: ActualDTC
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactDTCEvents = m
+		mode: import
+		source =
+				let
+				    Quelle = Json.Document(File.Contents(pDataFolder & "Synthetic_DTC_Events.json")),
+				    #"In Tabelle konvertiert1" = Record.ToTable(Quelle),
+				    #"Entpivotierte andere Spalten" = Table.UnpivotOtherColumns(#"In Tabelle konvertiert1", {"Name"}, "Attribut", "Wert"),
+				    #"Entfernte Spalten" = Table.RemoveColumns(#"Entpivotierte andere Spalten",{"Attribut"}),
+				    #"Umbenannte Spalten" = Table.RenameColumns(#"Entfernte Spalten",{{"Name", "DTCInfo"}, {"Wert", "EventList"}}),
+				    #"Erweiterte EventList" = Table.ExpandListColumn(#"Umbenannte Spalten", "EventList"),
+				    #"Spalte nach Trennzeichen teilen" = Table.SplitColumn(#"Erweiterte EventList", "DTCInfo", Splitter.SplitTextByEachDelimiter({"-"}, QuoteStyle.Csv, false), {"DTCInfo.1", "DTCInfo.2"}),
+				    #"Umbenannte Spalten1" = Table.RenameColumns(#"Spalte nach Trennzeichen teilen",{{"DTCInfo.1", "DTCCode"}, {"DTCInfo.2", "DTCName"}}),
+				    #"Geänderter Typ1" = Table.TransformColumnTypes(#"Umbenannte Spalten1",{{"DTCCode", type text}, {"DTCName", type text}}),
+				    #"Spalte nach Trennzeichen teilen1" = Table.SplitColumn(#"Geänderter Typ1", "EventList", Splitter.SplitTextByEachDelimiter({"->"}, QuoteStyle.Csv, false), {"EventList.1", "EventList.2"}),
+				    #"Umbenannte Spalten2" = Table.RenameColumns(#"Spalte nach Trennzeichen teilen1",{{"EventList.1", "Timestamp"}, {"EventList.2", "TestID"}}),
+				    #"Abgeschnittener Text" = Table.TransformColumns(#"Umbenannte Spalten2",{{"TestID", Text.Trim, type text}}),
+				    #"Geänderter Typ2" = Table.TransformColumnTypes(#"Abgeschnittener Text",{{"TestID", type text}}),
+				    #"Ersetzter Wert" = Table.ReplaceValue(#"Geänderter Typ2","-","",Replacer.ReplaceText,{"Timestamp"}),
+				    #"Geänderter Typ mit Gebietsschema" = Table.TransformColumnTypes(#"Ersetzter Wert", {{"Timestamp", type datetime}}, "de-DE"),
+				    #"Hinzugefügte benutzerdefinierte Spalte" = Table.AddColumn(#"Geänderter Typ mit Gebietsschema", "ActualDTC", each Text.Upper(Text.Trim([DTCCode]))),
+				    #"Geänderter Typ3" = Table.TransformColumnTypes(#"Hinzugefügte benutzerdefinierte Spalte",{{"ActualDTC", type text}})
+				in
+				    #"Geänderter Typ3"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
