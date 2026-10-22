@@ -1,3 +1,9 @@
+**Language / Sprache:** [English](README.md) | [Deutsch](README_DE.md)
+
+---
+
+
+
 # **Automotive Diagnostic Intelligence**
 
 ## **ECU Test & DTC Analytics | Power BI Portfolio Project**
