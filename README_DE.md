@@ -14,6 +14,57 @@ Die Lösung verbindet synthetische Diagnoseereignisse im JSON-Format mit einer s
 
 > **Datenschutzhinweis:** Sämtliche Datensätze sind synthetisch und ausschließlich für Demonstrationszwecke vorgesehen. Die gezeigten Ergebnisse repräsentieren keine realen Fahrzeug- oder Unternehmensdaten.
 
+---
+
+## Business Case & Data Storytelling
+
+### Von Fahrzeugdiagnose-Testdaten zu aussagekräftigen Qualitätsanalysen
+
+**Die Herausforderung**
+
+Bei der Entwicklung und Validierung von Fahrzeugsteuergeräten entstehen umfangreiche Diagnose- und Testergebnisse. Diese müssen mit dem erwarteten Verhalten gemäß den Testspezifikationen verglichen werden.
+
+Fehlende erwartete Diagnosefehlercodes (DTCs), zusätzliche Fehlereinträge und unvollständige Zuordnungen zwischen Testfällen und Spezifikationen erschweren die Bewertung der Diagnosequalität.
+
+**Meine Lösung**
+
+Ich habe eine interaktive Power-BI-Analyselösung entwickelt, die synthetische Steuergeräte-Diagnosedaten mit den zugehörigen Testspezifikationen verknüpft.
+
+Mit Power Query, DAX und einem strukturierten Datenmodell werden die Testergebnisse aufbereitet, analysiert und anhand verschiedener Qualitätskennzahlen visualisiert.
+
+Der Bericht umfasst fünf interaktive Analyseseiten mit Schwerpunkten auf Diagnosequalität, DTC-Analyse, Testfallbewertung, wiederkehrenden Auffälligkeiten und einer Managementübersicht.
+
+**Die wichtigsten Analyseergebnisse**
+
+Die Auswertung der synthetischen Testdaten ergab:
+
+- **41 diagnostische Testfälle** wurden analysiert.
+- **40 von 41 Testfällen (97,56 %)** konnten gültigen Spezifikationen zugeordnet werden.
+- Bei **38 von 40 spezifizierten Testfällen (95 %)** wurde der erwartete DTC erkannt.
+- Bei **2 Testfällen** wurde der erwartete DTC nicht erkannt.
+- **9 zusätzliche DTC-Ereignisse** wurden identifiziert.
+- Der DTC `0XF90009` trat bei **6 der 9 zusätzlichen Ereignisse (66,67 %)** auf.
+
+**Von der Analyse zur Handlungsempfehlung**
+
+Aus den Ergebnissen ergeben sich drei Untersuchungsschwerpunkte:
+
+1. **Spezifikationsabdeckung verbessern:** Den Testfall ohne gültige Spezifikationszuordnung überprüfen und die Ursache der fehlenden Zuordnung klären.
+2. **Fehlende DTC-Erkennung untersuchen:** Die beiden Testfälle analysieren, bei denen der erwartete Diagnosefehlercode nicht erkannt wurde.
+3. **Wiederkehrende Auffälligkeiten priorisieren:** Den zusätzlichen DTC `0XF90009` und die zugehörigen Testbedingungen genauer untersuchen.
+
+Die Ergebnisse zeigen mögliche Untersuchungsschwerpunkte auf. Sie belegen jedoch noch keine technischen Fehlerursachen.
+
+**Der geschäftliche Mehrwert**
+
+Das Projekt demonstriert, wie Power BI dazu beitragen kann, komplexe Fahrzeugdiagnosedaten transparent auszuwerten, Qualitätsabweichungen frühzeitig zu erkennen und technische Untersuchungen gezielt zu priorisieren.
+
+Durch interaktive Dashboards werden die Ergebnisse sowohl für Entwicklungs- und Testingenieure als auch für Projektverantwortliche verständlich aufbereitet.
+
+Das Projekt verbindet meine Berufserfahrung im Automotive Softwaretesting mit meinen Kompetenzen in Data Analytics, Datenmodellierung, DAX und der Entwicklung analytischer Werkzeuge.
+
+*Hinweis: Sämtliche verwendeten Testdaten und Analyseergebnisse sind synthetisch. Das Projekt dient der Demonstration und bildet keine tatsächlichen Fahrzeug- oder Unternehmensdaten ab.*
+
 ### Dashboard-Vorschau
 
 #### 01 – Diagnostic Overview (Diagnoseübersicht)
