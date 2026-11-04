@@ -16,7 +16,52 @@ The solution transforms synthetic diagnostic event logs and test specifications 
 
 **All data is synthetic and intended for demonstration purposes only. No proprietary ECU diagnostic data is included.**
 
+---
 
+## Business Case & Data Storytelling
+
+### From ECU Diagnostic Test Results to Actionable Quality Insights
+
+**The Challenge**
+
+Automotive ECU validation generates diagnostic test results that must be compared with expected behavior defined in test specifications.
+
+Missing expected Diagnostic Trouble Codes (DTCs), additional diagnostic events, and incomplete specification mappings can make it difficult to assess test quality and identify areas requiring investigation.
+
+**My Solution**
+
+I developed a Power BI analytics solution using Power Query, DAX, and a structured data model to combine synthetic ECU diagnostic events with test specifications.
+
+The solution provides five interactive reporting pages covering diagnostic performance, DTC analysis, test case quality, recurring anomalies, and an executive summary.
+
+**Key Findings**
+
+The analysis of the synthetic test dataset revealed:
+
+- 41 diagnostic test cases analyzed.
+- 40 of 41 test cases with valid specification mappings (97.56%).
+- Expected DTCs detected in 38 of 40 specified test cases (95.00%).
+- 2 test cases without their expected DTC.
+- 9 additional DTC events identified.
+- DTC `0XF90009` responsible for 6 of the 9 additional events (66.67%).
+
+**From Findings to Action**
+
+The analysis highlights three areas for further investigation:
+
+1. Review the test case without a valid specification mapping to improve specification coverage.
+2. Investigate the two test cases with missing expected DTCs to understand possible diagnostic or test-execution deviations.
+3. Prioritize examination of the recurring additional DTC `0XF90009` and its associated test conditions.
+
+These findings indicate investigation priorities but do not establish confirmed technical root causes.
+
+**Business Value**
+
+This project demonstrates how interactive analytics can help engineering and validation teams monitor diagnostic quality, identify recurring anomalies, prioritize investigations, and communicate technical findings to stakeholders.
+
+It combines automotive software-testing knowledge with business intelligence and the development of analytical tools.
+
+*All datasets and findings are synthetic and intended for portfolio demonstration. No improvements in real-world vehicle quality or engineering efficiency have been measured.*
 
 ### Dashboard Preview
 
